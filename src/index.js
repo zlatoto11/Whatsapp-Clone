@@ -9,6 +9,7 @@ import { StateProvider } from "./StateProvider";
 
 ReactDOM.render(
   <React.StrictMode>
+    {/* Wrap the context API around the app allowing variables to be accessed from anywhere. */}
     <StateProvider initialState={initialState} reducer={reducer}>
       <App />
     </StateProvider>

@@ -22,10 +22,11 @@ function Chat() {
   //   only runs this code when roomID changes
   useEffect(() => {
     if (roomId) {
+      //Get room name.
       db.collection("rooms")
         .doc(roomId)
         .onSnapshot((snapshot) => setRoomName(snapshot.data().name));
-
+      //go through messages and set + order by parameters.
       db.collection("rooms")
         .doc(roomId)
         .collection("messages")
@@ -34,6 +35,7 @@ function Chat() {
           setMessages(snapshot.docs.map((doc) => doc.data()))
         );
     }
+    //tell code here to only run based on roomID change
   }, [roomId]);
 
   // runs code when component loads
@@ -43,7 +45,7 @@ function Chat() {
   }, [roomId]);
 
   const sendMessage = (e) => {
-    //DO STUFF
+    //Prevent refresh and input into database the message we send.
     e.preventDefault();
     console.log("You typed >>>", input);
 
@@ -52,7 +54,7 @@ function Chat() {
       name: user.displayName,
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     });
-
+    //clear input after message sent
     setInput("");
   };
   return (
@@ -94,7 +96,7 @@ function Chat() {
             </span>
           </p>
         ))}
-        {/* only show as receiver if true, changes CSS  */}
+        {/* only show as receiver if true, changes CSS */}
       </div>
       <div className="chat__footer">
         <InsertEmoticonOutlined />

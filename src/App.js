@@ -11,6 +11,7 @@ function App() {
   return (
     <div className="app">
       {/* more BEM naming convention */}
+      {/* If user not logged in display login form else display everything else */}
       {!user ? (
         <Login />
       ) : (
