@@ -19,7 +19,7 @@ function Chat() {
   const [messages, setMessages] = useState([]);
   const [{ user }, dispatch] = useStateValue();
 
-  //   only runs this code when roomID changes
+  //   only runs this code when roomID changes. This is done by passing an array as an optional second argument to useEffect.
   useEffect(() => {
     if (roomId) {
       //Get room name.

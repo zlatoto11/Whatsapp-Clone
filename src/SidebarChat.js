@@ -8,7 +8,9 @@ function SidebarChat({ id, name, addNewChat }) {
   const [seed, setSeed] = useState("");
   const [messages, setMessages] = useState("");
 
+  //runs when the id changes. Gets all the messages.
   useEffect(() => {
+    // if ID exists
     if (id) {
       db.collection("rooms")
         .doc(id)
@@ -21,11 +23,12 @@ function SidebarChat({ id, name, addNewChat }) {
   }, [id]);
 
   // runs code when component loads
-  //   generating a new seed for every time component loads
+  //   generating a new seed for every time component loads. Used to display new images.
   useEffect(() => {
     setSeed(Math.floor(Math.random() * 5000));
   }, []);
 
+  // createChat prompts user for name and adds new chat with that name to the database.
   const createChat = () => {
     const roomName = prompt("Please enter a name for the chat");
     if (roomName) {
@@ -36,12 +39,16 @@ function SidebarChat({ id, name, addNewChat }) {
     }
   };
 
+  // if not new chat passed in value, show chats with messages else display add new chat.
   return !addNewChat ? (
+    //Create dynamic url to room with that id.
     <Link to={`/rooms/${id}`}>
       <div className="sidebarChat">
+        {/* We give a new seed to the room each time generating a new icon */}
         <Avatar src={`https://avatars.dicebear.com/api/human/${seed}.svg`} />
         <div className="sidebarChat__info">
           <h2>{name}</h2>
+          {/* Sets message to the last message sent. index 0 because its sorted as descending when fetched. */}
           <p> {[messages[0]?.message]}</p>
         </div>
       </div>
